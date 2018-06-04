@@ -33,3 +33,7 @@
 
 # smth
 main.cpp
+
+# qt
+*.pro.*
+*.pro
