@@ -22,12 +22,27 @@ public:
     class iterator {
 
     public:
-        iterator () : value(nullptr) { };
+        iterator () : value(nullptr) { }
+        iterator (var_type * const obj) : value(obj) { }
+        iterator (const iterator & it) : value(it.value)
+        {
+            #ifdef DEBUG
+            std::cout << "Iter copy cstr.\n";
+            #endif
+        }
+
+        iterator (iterator && it) : value(it.value)
+        {
+            #ifdef DEBUG
+            std::cout << "Iter move cstr.\n";
+            #endif
+        }
+
         ~iterator () = default;
 
-        var_type& operator* () {  };
-        iterator& operator++ () { ++value; return *this; };
-        iterator& operator++ (int) {  };
+        var_type& operator* () {  }
+        iterator& operator++ () { ++value; return *this; }
+        iterator& operator++ (int) { iterator next(this); ++value; return next; }
         iterator& operator-- ();
 
 
